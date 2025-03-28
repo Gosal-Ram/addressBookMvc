@@ -135,10 +135,11 @@ function logOut(){
     if(confirm("Confirm logout")){
         $.ajax({
             type:"POST",
-            // url: "index.cfm?action=addressBook.logOut",
-            url: "/controllers/main.cfc?method=logOut",
+            url: "index.cfm?action=main.logOut",
+            // url: "/controllers/main.cfc?method=logOut",
             success:function(){
-              location.reload();
+              /* location.reload(); */
+              location.href = "/index.cfm?action=main.login";
             }
         })
     }
@@ -160,10 +161,11 @@ function deleteContact(contactid){
 function viewContact(contactid){
     $.ajax({
         type:"POST",
-        url: "component/addressBook.cfc?method=viewContact",
+        // url: "component/addressBook.cfc?method=viewContact",
+        url: "index.cfm?action=main.viewContact",
         data:{contactid: contactid},
-        success:function(contactDetails){
-            let formattedContactDetails = JSON.parse(contactDetails)
+        success:function(formattedContactDetails){
+            console.log(formattedContactDetails);
             document.getElementById("fullNameView").textContent = `${formattedContactDetails.nametitle} ${formattedContactDetails.firstname} ${formattedContactDetails.lastname} ` 
             document.getElementById("genderView").textContent = formattedContactDetails.gender;
             document.getElementById("dobView").textContent = formattedContactDetails.dateofbirth.split(" ",3).join(" ");  
@@ -376,60 +378,3 @@ function exportExcel(){
 function dataTempDownload(){
     downloadFile("uploadExcel", "spreadsheets", "xlsx");
 }
-
-
-
-
-
-
-/* function triggerPdf() {
-    // alert("hello")
-    $.ajax({
-        type:"POST",
-        url: "component/addressBook.cfc?method=generatePdf",
-        success:function(pdfName){
-            let newPdfName= JSON.parse(pdfName);
-            const link = document.createElement("a");
-            link.href = `assets/pdfs/${newPdfName}.pdf`; 
-            link.download = newPdfName; 
-            document.body.appendChild(link); 
-            link.click();
-            document.body.removeChild(link);
-            }})
-}
-
-function exportExcel() {
-    $.ajax({
-        method: "POST",
-        url: "component/addressBook.cfc?method=generateExcel",
-        success:function(excelName){
-            let newexcelName= JSON.parse(excelName);
-            const link = document.createElement("a");
-            link.href = `assets/spreadsheets/${newexcelName}.xlsx`; 
-            link.download = newexcelName; 
-            document.body.appendChild(link); 
-            link.click();
-            document.body.removeChild(link);
-            }
-    });
-}
-
-function dataTempDownload(){ 
-    // alert("hello")
-    $.ajax({
-        method: "POST",
-        url: "component/addressBook.cfc?method=uploadExcel",
-        success:function(excelName){
-            let newexcelName= JSON.parse(excelName);
-            const link = document.createElement("a");
-            link.href = `assets/spreadsheets/${newexcelName}.xlsx`; 
-            link.download = newexcelName; 
-            document.body.appendChild(link); 
-            link.click();
-            document.body.removeChild(link);
-            } 
-
-    });
-} */
-
-

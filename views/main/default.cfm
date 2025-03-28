@@ -1,6 +1,7 @@
 <cfoutput>
 <cfif structKeyExists(session, "isLoggedIn")>
-    <cfdump  var="#session#">
+<!---     <cfdump  var="#session#">
+    <cfdump  var="#rc#"> --->
     <cfset currentDate = DateFormat(Now(), "yyyy-mm-dd")>
     <div class="homeTopContainer bg-light my-2 p-3 px-5 rounded">
     <div>
@@ -34,12 +35,12 @@
     </div>
     <div class="homeMainContainer d-flex my-2">
     <div class="homeLeftFlex me-2 bg-light d-flex flex-column align-items-center p-3">
-        <!--- <cfif structKeyExists(session, "profilePicFromGoogle")>
-        <img src = "#session.profilePicFromGoogle#" alt="userProfilePic" width="100" height="100">
+        <cfif structKeyExists(session, "profilePicFromGoogle")>
+            <img src = "#session.profilePicFromGoogle#" alt="userProfilePic" width="100" height="100">
         <cfelse>
-        <img src = "/assets/userImages/#session.profilePic#" alt="user profile picture" width="100" height="100">
-        <h5 class="fullNameTxt mt-2">#session.fullName#</h5>
-        </cfif> --->
+            <img src = "/assets/userImages/#session.profilePic#" alt="user profile picture" width="100" height="100">
+            <h5 class="fullNameTxt mt-2">#session.fullName#</h5>
+        </cfif>
         <button type="button" class="createBtn" data-bs-toggle="modal" data-bs-target="##editBtn" onclick ="createContact(event)">CREATE CONTACT</button>
         <button type="button" class="createBtn" data-bs-toggle="modal" data-bs-target="##uploadBtn">UPLOAD CONTACT</button>
     </div>
