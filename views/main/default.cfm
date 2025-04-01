@@ -28,8 +28,8 @@
         </cfif> --->
     </div>
     <div class="homeTopImgCont d-flex justify-content-end ">
-        <button type="button" name="exportPdfBtn" class="pdfBtn" onclick="triggerPdf()" id="downloadPdfBtn"><img class="me-2" src="./assets/images/pdf-icon.png" alt="" width="30" height="30"></button>
-        <a href="" onclick="exportExcel()"><img class="ms-2" src="./assets/images/excel-icon.png" alt="" width="30" height="30"></a>
+       <!---  <button type="button" name="exportPdfBtn" class="pdfBtn" onclick="triggerPdf()" id="downloadPdfBtn"><img class="me-2" src="./assets/images/pdf-icon.png" alt="" width="30" height="30"></button>
+        <a href="" onclick="exportExcel()"><img class="ms-2" src="./assets/images/excel-icon.png" alt="" width="30" height="30"></a> --->
         <a href="" onclick="exportPrint()"><img class="ms-3" src="./assets/images/printer-icon.png" alt="" width="30" height="30"></a>
     </div>
     </div>
@@ -42,39 +42,8 @@
             <h5 class="fullNameTxt mt-2">#session.fullName#</h5>
         </cfif>
         <button type="button" class="createBtn" data-bs-toggle="modal" data-bs-target="##editBtn" onclick ="createContact(event)">CREATE CONTACT</button>
-        <button type="button" class="createBtn" data-bs-toggle="modal" data-bs-target="##uploadBtn">UPLOAD CONTACT</button>
+        <!--- <button type="button" class="createBtn" data-bs-toggle="modal" data-bs-target="##uploadBtn">UPLOAD CONTACT</button> --->
     </div>
-    <!--- <div class="homeRightFlex bg-light" id="homeRightFlex">
-        <table class="table align-middle table-hover table-borderless">
-            <thead>
-            <tr class="border-bottom tableHeading">
-                <th scope="col"></th>
-                <th scope="col">Name</th>
-                <th scope="col">Email id</th>
-                <th scope="col">Phone number</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <cfset ormReload()>
-            <!--- <cfset ormFetchContact = entityLoad("addressBookOrm" ,{createdBy = "#session.username#",activeStatus = 1})>  --->
-            <cfset ormFetchContact = entityLoad("addressBookOrm" ,{createdBy = "brian",activeStatus = 1})> 
-            <cfloop array ="#ormFetchContact#" item="item">
-            <tr id ="#item.getcontactid()#">
-                <th scope="row"><img src="./assets/contactImages/#item.getcontactprofile()#" alt="contactProfile" width="50" height="50"></th>
-                <td>#item.getfirstname()# #item.getlastname()#</td>
-                <td>#item.getemail()#</td>
-                <td>#item.getmobile()#</td>
-                <td><button type="button" class="btnHide" data-bs-toggle="modal" data-bs-target="##editBtn" onclick = "editContact('#item.getcontactid()#')">EDIT</button></td>
-                <td><button type="button" class="btnHide" onClick="deleteContact('#item.getcontactid()#')">DELETE</button></td>
-                <td><button type="button" class="btnHide" data-bs-toggle="modal" data-bs-target="##viewBtn" onClick="viewContact('#item.getcontactid()#')">VIEW</button></td>
-            </tr>
-            </cfloop>
-            </tbody>
-        </table>
-    </div> --->
     <div class="homeRightFlex bg-light" id="homeRightFlex">
         <table class="table align-middle table-hover table-borderless">
             <thead>
@@ -90,7 +59,7 @@
             </thead>
             <tbody> 
             <cfloop query="rc.contacts">
-                <tr>
+                <tr  id = "#contactid#">
                 <th scope="row"><img src="./assets/contactImages/#contactprofile#" alt="" width="50" height="50"></th>
                 <td>#firstname# #lastname#</td>
                 <td>#email#</td>
@@ -157,10 +126,10 @@
                         <div class="d-flex flex-column">
                         <label class="modalLabelForEven2">Role*</label>
                         <select name="role" id="role" multiple class="modalInputForEven2 " multiple >
-                        <!--- <cfset getOptions = application.obj.getRoleNameAndRoleId()>
+                        <cfset getOptions = rc.roles>
                         <cfloop query="getOptions">
                             <option value="#getOptions.roleId#">#getOptions.roleName#</option>
-                        </cfloop> --->
+                        </cfloop>
                         </select> 
                         </div>
                         <div class="d-flex justify-content-between">
@@ -229,7 +198,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" name="modalSubmitBtn" class="btn btn-primary">Save Changes</button>
+            <button type="submit" name="modalSubmitBtn"  id = "modalSubmitBtn" class="btn btn-primary">Save Changes</button>
         </div>
         </div>
     </div>

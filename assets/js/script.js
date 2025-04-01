@@ -35,14 +35,15 @@ function createContact(event){
 
 function editContact(contactid){
     clearErrorMessages();
-    document.getElementById("contactId").value = contactid
+    document.getElementById("contactId").value = contactid;
     document.querySelector(".modalTitle").textContent = "EDIT CONTACT";
     $.ajax({
         type:"POST",
-        url: "component/addressBook.cfc?method=viewContact",
+        url: "index.cfm?action=main.viewContact",
+        // url: "component/addressBook.cfc?method=viewContact",
         data:{contactid: contactid},
-        success:function(contactDetails){
-            let formattedContactDetails = JSON.parse(contactDetails)
+        success:function(formattedContactDetails){
+            // let formattedContactDetails = JSON.parse(contactDetails);
             document.getElementById("nameTitle").value = formattedContactDetails.nametitle;
             document.getElementById("firstName").value = formattedContactDetails.firstname;
             document.getElementById("lastName").value = formattedContactDetails.lastname;
@@ -149,7 +150,8 @@ function deleteContact(contactid){
     if(confirm("Confirm delete")){
         $.ajax({
             type:"POST",
-            url: "component/addressBook.cfc?method=deleteContact",
+            // url: "component/addressBook.cfc?method=deleteContact",
+            url: "index.cfm?action=main.deleteContact",
             data:{contactid: contactid},
             success:function(){
             document.getElementById(contactid).remove()  
