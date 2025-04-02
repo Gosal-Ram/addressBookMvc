@@ -33,8 +33,15 @@ component accessors="true" {
     }
 
     public function login(struct rc){
+        rc.result = ""
         if(structKeyExists(rc, "submit")){
             rc.result = variables.addressBookService.logIn(rc.userName,rc.pwd)
+        }
+    }
+    public function signup(struct rc){
+        rc.result = ""
+        if(structKeyExists(rc, "submit")){
+            rc.result = variables.addressBookService.signUp(rc.fullName,rc.emailId,rc.userName,rc.pwd1,rc.profilePic)
         }
     }
 
@@ -54,8 +61,7 @@ component accessors="true" {
     }
 
     public function urlRequestHandler(struct rc){
-
-        allowedPages = ["main.login"];
+        allowedPages = ["main.login" , "main.signup"];
         if (structKeyExists(session, "username") OR arrayContains(allowedPages, rc.action)) {
         } else {
             location(url="/index.cfm?action=main.login", addtoken="no");

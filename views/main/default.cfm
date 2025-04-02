@@ -4,29 +4,6 @@
     <cfdump  var="#rc#"> --->
     <cfset currentDate = DateFormat(Now(), "yyyy-mm-dd")>
     <div class="homeTopContainer bg-light my-2 p-3 px-5 rounded">
-    <div>
-    <!---     <cfif structKeyExists(form, "modalSubmitBtn")>  
-            <cfset result = application.obj.saveContact(
-            nameTitle =  form.nameTitle,
-            firstName = form.firstName,
-            lastName = form.lastName,
-            gender = form.gender,
-            dob = form.dob,
-            contactProfile = form.contactProfile,
-            address = form.address,
-            street = form.street,
-            district = form.district,
-            state = form.state,
-            country = form.country,
-            pincode = form.pincode,
-            email = form.email,
-            mobile = form.mobile,
-            contactId = form.contactId,
-            role = form.role
-            )>
-            <span class="text-success fw-bold ms-5 fs-6">#result#</span>                
-        </cfif> --->
-    </div>
     <div class="homeTopImgCont d-flex justify-content-end ">
        <!---  <button type="button" name="exportPdfBtn" class="pdfBtn" onclick="triggerPdf()" id="downloadPdfBtn"><img class="me-2" src="./assets/images/pdf-icon.png" alt="" width="30" height="30"></button>
         <a href="" onclick="exportExcel()"><img class="ms-2" src="./assets/images/excel-icon.png" alt="" width="30" height="30"></a> --->

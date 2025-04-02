@@ -19,18 +19,26 @@
                 </a>
             </div>
             <div class="ms-auto d-flex me-5">
-                <div class="loginCont">
-                <a class="btn text-light" onClick="return logOut()"> 
-                    <img src="/assets/images/exit.png" alt="" width="18" height="18">
-                    Logout
-                </a>
-                </div>
+                <cfif NOT structKeyExists(session, "username")>
+                    <div class="signUpCont mx-4">
+                        <img src="/assets/images/user.png" alt="" width="18" height="18" class="headerImg2">
+                        <a class="btn text-light" href="#buildURL('main.signup')#">Sign Up</a>
+                    </div>
+                </cfif>
+                <cfif structKeyExists(session, "username")>
+                    <div class="loginCont">
+                        <a class="btn text-light" onClick="return logOut()"> 
+                            <img src="/assets/images/exit.png" alt="" width="18" height="18">
+                            Logout
+                        </a>
+                    </div>
+                </cfif>
             </div>
         </header>
         <main class = "mx-auto homeMain">
             #body#
         </main>
-    </cfoutput> <!-- View content goes here -->
+    </cfoutput> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/script.js"></script>
 </body>

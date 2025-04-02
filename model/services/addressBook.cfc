@@ -149,6 +149,57 @@
         <cfreturn local.queryGetAllContactsInfo>
     </cffunction>
 
+    <cffunction  name="signUp" returnType="string">
+        <cfargument  name="fullName" type="string" required="true">
+        <cfargument  name="emailId" type="string" required="true">
+        <cfargument  name="userName" type="string" required="true">
+        <cfargument  name="pwd1" type="string" required="true">
+        <cfargument  name="profilePic" type="string" required="true">
+
+        <cfset local.encryptedPass = Hash(#arguments.pwd1#, 'SHA-512')/>
+        <cfset local.result = "">
+        <cfquery name = "local.queryUniqueUserCheck">
+            SELECT 
+                COUNT(userName) AS count
+            FROM 
+                cfuser 
+            WHERE
+                userName = <cfqueryparam value = "#arguments.userName#" cfsqltype="CF_SQL_VARCHAR"> AND 
+                emailId = <cfqueryparam value = "#arguments.emailId#" cfsqltype="CF_SQL_VARCHAR">
+        </cfquery>
+        <cfif local.queryUniqueUserCheck.count>
+            <cfset local.result = "user name or mail already exists">
+        <cfelse>
+            <cfif arguments.profilePic =="">
+                <cfset local.imagePath = "user-grey-icon.png">
+            <cfelse>
+                <cfset local.imagePath = expandPath("./assets/userImages")>
+                <cffile action="upload" destination="#local.imagePath#" nameConflict="makeunique">
+                <cfset local.imagePath = cffile.clientFile>
+            </cfif>
+            <cfquery name="local.queryInsert">
+                INSERT INTO 
+                    cfuser(
+                        fullName,
+                        emailId,
+                        userName,
+                        pwd,
+                        profilePic
+                    ) 
+                VALUES 
+                    (<cfqueryparam value = "#arguments.fullName#" cfsqltype="CF_SQL_VARCHAR">,
+                        <cfqueryparam value = "#arguments.emailId#" cfsqltype="CF_SQL_VARCHAR">,
+                        <cfqueryparam value = "#arguments.userName#" cfsqltype="CF_SQL_VARCHAR">,
+                        <cfqueryparam value = "#local.encryptedPass#" cfsqltype="CF_SQL_VARCHAR">,
+                        <cfqueryparam value = "#local.imagePath#" cfsqltype="CF_SQL_VARCHAR">
+                )
+            </cfquery>
+            <cfset local.result = "user created successfully">
+        </cfif>
+        <cfreturn local.result>
+    </cffunction>
+    
+
         <!---<cffunction  name="logOut" access="remote">
             <cfset structClear(session)>
             <cflocation url="/login.cfm" addtoken="false">
